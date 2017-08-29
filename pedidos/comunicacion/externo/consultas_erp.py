@@ -6,7 +6,8 @@ def usuario_en_erp(args):
 
 def obtener_usuario_de_erp(args):
     #return Usuario('1@1','asdta','')
-    return None
+    #return None
+    return {}
 
 def item_existe(args):
     return True
