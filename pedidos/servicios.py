@@ -23,6 +23,8 @@ def atender_ordenes(cola):
         else:
             print 'dentro'
             usuario = Servicios_de_Autenticacion().iniciar_sesion(orden['usuario'])
+            if not usuario.es_valido():
+                
             orden = Servicios_de_Ordenes().nueva_orden(usuario)
             
             

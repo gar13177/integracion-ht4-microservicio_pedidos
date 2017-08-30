@@ -31,18 +31,27 @@ class Usuario(object):
             self.contrasena = Contrasena(contrasena)
         else:
             self.contrasena = None
-        
+
+        self.token = None
         if self.email == None and self.contrasena == None:
             if token == None or token == '':
                 raise UsuarioNoValido()
             else:
                 self.token = token
-                self.actualizar_de_erp()
-
-        self.token = None
+                self.actualizar_de_erp()        
 
     def __str__(self):
         return str(self.email)+" "+str(self.contrasena)+" "+str(self.token)
+
+    def es_valido(self):
+        if self.token == None:
+            if self.existe_en_erp():
+                self.actualizar_de_erp()
+                return True
+        else:
+            if self.esta_registrado():
+                return True
+        return False
 
     def esta_registrado(self):
         sesion_iniciada = usuario_con_sesion_iniciada(self)        
@@ -58,4 +67,5 @@ class Usuario(object):
             raise UsuarioNoExistente()
         self = usuario
         return usuario
+
             
