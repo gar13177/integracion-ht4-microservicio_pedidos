@@ -1,7 +1,7 @@
 from usuariovo.email import Email
 from usuariovo.contrasena import Contrasena
 
-from comunicacion.basededatos.consultas import usuario_con_sesion_iniciada
+from comunicacion.basededatos.consultas import usuario_con_sesion_iniciada, obtener_usuario_de_db, crear_usuario
 from comunicacion.externo.consultas_erp import usuario_en_erp, obtener_usuario_de_erp
 
 class UsuarioNoExistente(Exception):
@@ -59,7 +59,14 @@ class Usuario(object):
 
     def existe_en_erp(self):
         usuario_en_erp = usuario_en_erp(self)
-        return usuario_en_erp        
+        return usuario_en_erp     
+
+    def actualizar_de_copia_local(self):
+        usuario = obtener_usuario_de_db(self)
+        if usuario == None:
+            raise UsuarioNoExistente()
+        self = usuario
+        return usuario   
 
     def actualizar_de_erp(self):
         usuario = obtener_usuario_de_erp(self)
@@ -68,4 +75,6 @@ class Usuario(object):
         self = usuario
         return usuario
 
-            
+    def guardar_copia_local(self):
+        valido = crear_usuario(self)
+        return valido

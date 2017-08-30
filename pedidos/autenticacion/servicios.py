@@ -8,14 +8,16 @@ class Servicios_de_Autenticacion(object):
         usuario = Usuario(
             usuario['email'],
             usuario['contrasena'],
-            usuario['token']
+            ''# token
         )
         
-        if usuario.esta_registrado():
-            return usuario
+        #if usuario.esta_registrado():
+        #    usuario = usuario.actualizar_de_copia_local()
+        #    return usuario
     
-        if usuario.existe_en_erp():
-            usuario = usuario.actualizar_de_erp()
+        if True:#usuario.existe_en_erp():
+            #usuario = usuario.actualizar_de_erp()
+            usuario.guardar_copia_local()
             return usuario
 
         raise UsuarioNoExistente()

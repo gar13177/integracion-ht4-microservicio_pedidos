@@ -7,7 +7,7 @@ class EmailError(Exception):
 
 class Email(object):
     def __init__(self, email_string):
-        if not ('@' in email_string):
+        """if not ('@' in email_string):
             raise EmailError()
         
         if len(email_string) <= 1:
@@ -19,7 +19,9 @@ class Email(object):
             raise EmailError()
 
         self.user = email_array[0]
-        self.domain = email_array[1]
+        self.domain = email_array[1]"""
+        self.user = email_string
+        self.domain = 'app.com'
 
     def __str__(self):
         return str(self.user)+"@"+str(self.domain)
