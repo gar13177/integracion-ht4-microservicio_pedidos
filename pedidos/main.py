@@ -1,7 +1,7 @@
 import thread
 
 from colas.colas import Colas
-from servicios import atender_inicio_de_sesion, atender_ordenes, atender_promociones
+#from servicios import atender_inicio_de_sesion, atender_ordenes, atender_promociones
 
 from rabbitmq.PromotionServer import get_promotions
 from rabbitmq.LoginRcpServer import new_login
