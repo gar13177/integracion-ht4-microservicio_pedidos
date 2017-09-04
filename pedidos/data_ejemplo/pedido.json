@@ -1,0 +1,17 @@
+{
+    "user":"kevin",
+    "order":{
+        "address":"a101",
+        "products":[
+            {
+                "product":"coca-cola",
+                "qty": 3
+            },
+            {
+                "product":"pan",
+                "qty":1
+            }
+        ],
+        "status":"RECEIVED"
+    }
+}

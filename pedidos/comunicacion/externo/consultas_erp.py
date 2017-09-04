@@ -1,12 +1,18 @@
 #from autenticacion.modelos.usuario import Usuario
 
 def usuario_en_erp(args):
+    fibonacci_rpc = FibonacciRpcClient()
+
+    print(" [x] Requesting fib(30)")
+    response = fibonacci_rpc.call(30)
+    print(" [.] Got %r" % response)
     return True
 
 
 def obtener_usuario_de_erp(args):
-    #return Usuario('1@1','asdta','')
-    #return None
+    fibonacci_rpc = FibonacciRpcClient()
+    response = fibonacci_rpc.call(30)
+    print(" [.] Got %r" % response)
     return {}
 
 def item_existe(args):
