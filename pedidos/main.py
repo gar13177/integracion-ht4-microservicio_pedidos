@@ -15,10 +15,11 @@ if __name__ == "__main__":
     #response = fibonacci_rpc.call(30)
     #print(" [.] Got %r" % response)
     try:
-        thread.start_new_thread(get_promotions)
-        thread.start_new_thread(new_login)
+        thread.start_new_thread(get_promotions, ())
+        thread.start_new_thread(new_login, ())
         #new_login()
-    except:
+    except Exception as e:
+        print e.message
         print "Error: unable to start thread"
 
     while 1:
