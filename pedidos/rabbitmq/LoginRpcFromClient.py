@@ -32,7 +32,7 @@ class LoginRpcClient(object):
                                    body=data)
         while self.response is None:
             self.connection.process_data_events()
-        return int(self.response)
+        return self.response
 
 login_rpc = LoginRpcClient()
 
@@ -41,5 +41,6 @@ inicio_de_sesion = {
     "password": "password"
 }
 
+print ("sent")
 response = login_rpc.call(json.dumps(inicio_de_sesion))
-print(" [.] Got %r" % response)
+print(" [.] Got "+str(response))

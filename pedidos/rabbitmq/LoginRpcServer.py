@@ -1,5 +1,5 @@
 import pika, json
-from servicios import *
+from autenticacion.servicios import *
 
 LOGIN_FROM_CLIENT_QUEUE = 'login_from_client_queue'
 
