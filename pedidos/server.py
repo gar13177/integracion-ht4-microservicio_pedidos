@@ -50,11 +50,14 @@ if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG)
     server = Server("0.0.0.0", 9000)
     try:
+        print 'Listening'
         logging.info("Listening")
         server.start()
     except:
+        print 'Unexpected exception'
         logging.exception("Unexpected exception")
     finally:
+        print 'Shutting down'
         logging.info("Shutting down")
         for process in multiprocessing.active_children():
             logging.info("Shutting down process %r", process)

@@ -11,9 +11,9 @@ class Servicios_de_Autenticacion(object):
             ''# token
         )
         
-        #if usuario.esta_registrado():
-        #    usuario = usuario.actualizar_de_copia_local()
-        #    return usuario
+        if usuario.esta_registrado():
+            usuario = usuario.actualizar_de_copia_local()
+            return usuario
     
         if True:#usuario.existe_en_erp():
             #usuario = usuario.actualizar_de_erp()
