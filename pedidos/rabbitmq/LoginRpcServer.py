@@ -38,5 +38,5 @@ def new_login():
     
     channel.basic_qos(prefetch_count=1)
     channel.basic_consume(on_request, queue=LOGIN_FROM_CLIENT_QUEUE)
-
+    print("recepcion de logins iniciada")
     channel.start_consuming()

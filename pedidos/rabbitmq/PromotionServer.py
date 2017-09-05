@@ -1,7 +1,5 @@
 import pika, json
 
-
-
 def callback(ch, method, properties, body):
     promocion = json.loads(body)
     print promocion
@@ -15,5 +13,6 @@ def get_promotions():
     channel.basic_consume(callback,
                       queue='new_promotion',
                       no_ack=True)
+    print("recepcion de promociones")
 
     channel.start_consuming()
