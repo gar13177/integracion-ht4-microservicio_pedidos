@@ -1,12 +1,13 @@
-import pika
-import uuid
-import json
+import pika, uuid, json
+import thread
+from NewOrderFromClient import new_order, recieve_order
 
 LOGIN_FROM_CLIENT_QUEUE = 'login_from_client_queue'
+HOST = 'localhost'
 
 class LoginRpcClient(object):
     def __init__(self):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=HOST))
 
         self.channel = self.connection.channel()
 
@@ -36,11 +37,31 @@ class LoginRpcClient(object):
 
 login_rpc = LoginRpcClient()
 
+#inicio_de_sesion = {
+    #"user":"prueba@prueba",
+    #"password": "prueba"
+#}
+#inicio_de_sesion = {
+#    "token":"1"
+#}
 inicio_de_sesion = {
-    "user":"kevin",
-    "password": "password"
+    "user":"nuevo@gmail",
+    "password": "prueba"
 }
 
-print ("sent")
+#print ("sent")
 response = login_rpc.call(json.dumps(inicio_de_sesion))
-print(" [.] Got "+str(response))
+response = json.loads(response)
+print("Inicio de sesion: "+str(response))
+#response = {"token":"dba1699f-6727-4840-901d-0823ae9274c6"}
+
+
+try:
+    thread.start_new_thread(recieve_order, (response['token'],))
+except Exception as e:
+    print e.message
+    print "Error: unable to start thread"
+new_order(response['token'])
+while 1:
+    pass
+

@@ -5,18 +5,20 @@ class Servicios_de_Autenticacion(object):
         pass
 
     def iniciar_sesion(self, usuario):
-        usuario = Usuario(
-            usuario['email'],
-            usuario['contrasena'],
-            ''# token
-        )
+        """
+        email=None,
+        contrasena=None,
+        token=None,
+        fecha_expiracion=None
+        """
+        usuario = Usuario(**usuario)
         
         if usuario.esta_registrado():
             usuario = usuario.actualizar_de_copia_local()
             return usuario
     
-        if True:#usuario.existe_en_erp():
-            #usuario = usuario.actualizar_de_erp()
+        if usuario.existe_en_erp():
+            usuario = usuario.actualizar_de_erp()
             usuario.guardar_copia_local()
             return usuario
 

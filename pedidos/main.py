@@ -1,15 +1,13 @@
 import thread
-
-from colas.colas import Colas
-#from servicios import atender_inicio_de_sesion, atender_ordenes, atender_promociones
-
-from rabbitmq.PromotionServer import get_promotions
-from rabbitmq.LoginRpcServer import new_login
+from rabbitmq.NewPromotions import new_promotion
+from rabbitmq.LoginFromUser import new_login
+from rabbitmq.NewOrder import new_order
 
 if __name__ == "__main__":
     try:
-        thread.start_new_thread(get_promotions, ())
+        thread.start_new_thread(new_promotion, ())
         thread.start_new_thread(new_login, ())
+        thread.start_new_thread(new_order, ())
     except Exception as e:
         print e.message
         print "Error: unable to start thread"

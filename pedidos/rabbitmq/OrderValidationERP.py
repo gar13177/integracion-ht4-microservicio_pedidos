@@ -1,11 +1,10 @@
 import pika
 import uuid
+from constants import ORDER_ERP_VALIDATION_QUEUE, HOST
 
-LOGIN_QUEUE = 'login_queue'
-
-class LoginRpcClient(object):
+class OrderValidationERP(object):
     def __init__(self):
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost'))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=HOST))
 
         self.channel = self.connection.channel()
 
@@ -19,16 +18,16 @@ class LoginRpcClient(object):
         if self.corr_id == props.correlation_id:
             self.response = body
 
-    def call(self, n):
+    def call(self, data):
         self.response = None
         self.corr_id = str(uuid.uuid4())
         self.channel.basic_publish(exchange='',
-                                   routing_key=LOGIN_QUEUE,
+                                   routing_key=ORDER_ERP_VALIDATION_QUEUE,
                                    properties=pika.BasicProperties(
                                          reply_to = self.callback_queue,
                                          correlation_id = self.corr_id,
                                          ),
-                                   body=str(n))
+                                   body=data)
         while self.response is None:
             self.connection.process_data_events()
-        return int(self.response)
+        return self.response

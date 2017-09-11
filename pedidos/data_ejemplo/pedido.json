@@ -1,17 +1,21 @@
 {
-    "user":"kevin",
-    "order":{
-        "address":"a101",
-        "products":[
+    "user": "token",
+    "order": {
+        "address": "A101",
+        "status": "RECEIVED",
+        "products": [
             {
-                "product":"coca-cola",
-                "qty": 3
+                "product": "COCA-COLA",
+                "qty": 5
             },
             {
-                "product":"pan",
-                "qty":1
+                "product": "DULCES",
+                "qty": 16
+            },
+            {
+                "product": "MIRINDA",
+                "qty": 2
             }
-        ],
-        "status":"RECEIVED"
+        ]
     }
 }
