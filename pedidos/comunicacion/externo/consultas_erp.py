@@ -5,37 +5,35 @@ import json
 
 def usuario_en_erp(usuario):
     usuario_data = {
-        "type":"check",
-        "data":{
-            "user": usuario.email.user,
-            "password": usuario.contrasena
-        }
+        "user_name": str(usuario.email),
+        "password": usuario.contrasena
     }
     usuario_data = json.dumps(usuario_data, ensure_ascii=False).encode('utf8')
     erp_connection = LoginValidationErp()
     print("check user on login: "+str(usuario_data))
-    #response = erp_connection.call(usuario_data)
-    #response = {"answer":"true"} 
+    response = erp_connection.call(usuario_data)
+    response = json.loads(response)
+    if 'err' in response:
+        return False
     #print("got: "+str(response))
-    return False#True
+    return True
 
 
 def obtener_usuario_de_erp(usuario):
     usuario_data = {
-        "type":"get",
-        "data":{
-            "user": usuario.email.user,
-            "password": usuario.contrasena
-        }
+        "user_name": str(usuario.email),
+        "password": usuario.contrasena
     }
     usuario_data = json.dumps(usuario_data, ensure_ascii=False).encode('utf8')
     erp_connection = LoginValidationErp()
     print("get user on login: "+str(usuario_data))
-    #response = erp_connection.call(usuario_data)
-    #response = {"answer":"true"} 
-    #print("got: "+str(response))
-    usuario.token = str(uuid4())
-    usuario.actualizar_fecha_de_expiracion('2017-09-27T00:00:00Z')
+    response = erp_connection.call(usuario_data)
+    response = json.loads(response)
+    if 'err' in response:
+        return None
+
+    usuario.token = response['token']
+    usuario.actualizar_fecha_de_expiracion(response['date_expiration'])
     return usuario
 
 def revisar_orden_en_erp(orden):

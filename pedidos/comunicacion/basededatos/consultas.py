@@ -2,6 +2,7 @@ import requests
 import uuid
 
 BASE_PATH = 'http://localhost:8003/'
+#BASE_PATH = 'database:8003/'
 USER_PATH = 'usuario'
 
 def usuario_con_sesion_iniciada(usuario):
