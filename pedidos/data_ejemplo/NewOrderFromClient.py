@@ -34,7 +34,7 @@ def new_order(token):
     connection = pika.BlockingConnection(pika.ConnectionParameters(host=HOST))
     channel = connection.channel()
 
-    order['user'] = token
+    order['token'] = token
     message = json.dumps(order)
 
     channel.queue_declare(queue=ORDER_QUEUE)
@@ -46,23 +46,20 @@ def new_order(token):
     connection.close()
 
 order = {
-    "user": "token",
-    "order": {
-        "address": "A101",
-        "status": "RECEIVED",
-        "products": [
-            {
-                "product": "COCA-COLA",
-                "qty": 5
-            },
-            {
-                "product": "DULCES",
-                "qty": 16
-            },
-            {
-                "product": "MIRINDA",
-                "qty": 2
-            }
-        ]
-    }
+	"token":"a8a43c1a-6caa-41c9-a5d5-4284f7f84ea7",
+	"order":
+		{
+			"address": "A101",
+			"status": "RECEIVED",
+			"products": [
+				{
+					"product": "Cocacola",
+					"qty": 1
+				},
+				{
+					"product": "Hamburguesa",
+					"qty": 1
+				}
+			]
+		}	
 }

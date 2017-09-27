@@ -37,6 +37,7 @@ class Usuario(object):
             token=None,
             fecha_expiracion=None
         ):
+        self.promociones = None
         self.actualizar_email(email)
 
         self.actualizar_contrasena(contrasena)

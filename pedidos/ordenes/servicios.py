@@ -9,7 +9,7 @@ class Servicios_de_Ordenes(object):
         pass
 
     def consultar_orden_a_erp(self, orden):
-        data_usuario = {"token":orden['user']}
+        data_usuario = {"token":orden['token']}
         usuario = Servicios_de_Autenticacion().iniciar_sesion(data_usuario)
 
         mensaje_a_usuario = json.dumps({"message":"estamos atendiendo tu orden"}, ensure_ascii=False).encode('utf8')

@@ -8,7 +8,7 @@ def callback(ch, method, properties, body):
     try:
         Servicios_de_Ordenes().consultar_orden_a_erp(orden)
     except Exception as e:
-        token = orden['user']
+        token = orden['token']
         respuesta = json.dumps({"message":e.message}, ensure_ascii=False).encode('utf8')
         process_order(token, respuesta)
 

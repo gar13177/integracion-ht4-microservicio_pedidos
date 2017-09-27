@@ -21,7 +21,8 @@ def on_request(ch, method, props, body):
         usuario = Servicios_de_Autenticacion().iniciar_sesion(data_usuario)
         respuesta = {
             'message': 'welcome %s, your token is %s'%(usuario.email.user,usuario.token),
-            'token': usuario.token
+            'token': usuario.token,
+            'promotions': usuario.promociones
         }
         respuesta = json.dumps(respuesta, ensure_ascii=False).encode('utf8')
     except Exception as e:

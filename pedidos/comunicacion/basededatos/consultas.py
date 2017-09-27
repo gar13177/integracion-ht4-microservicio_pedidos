@@ -4,6 +4,7 @@ import uuid
 BASE_PATH = 'http://localhost:8003/'
 #BASE_PATH = 'database:8003/'
 USER_PATH = 'usuario'
+PROMOTION_PATH = 'promocion'
 
 def usuario_con_sesion_iniciada(usuario):
     if usuario.token != None:
@@ -49,3 +50,18 @@ def crear_usuario(usuario):
     print str(r)
     print str(r.text)
     return False
+
+def crear_promocion(promocion):
+    r = requests.post(BASE_PATH+PROMOTION_PATH+'/', data=promocion)
+    if r.status_code == requests.codes.ok:
+        data = r.json()
+        print data
+        return True
+    return False
+
+def obtener_promociones():
+    r = requests.get(BASE_PATH+PROMOTION_PATH)
+    if r.status_code == requests.codes.ok:
+        data = r.json() # se obtiene el primer registro
+        return data
+    return []

@@ -1,4 +1,4 @@
-import thread
+import thread, time 
 from rabbitmq.NewPromotions import new_promotion
 from rabbitmq.LoginFromUser import new_login
 from rabbitmq.NewOrder import new_order
@@ -12,5 +12,11 @@ if __name__ == "__main__":
         print e.message
         print "Error: unable to start thread"
 
-    while 1:
-        pass
+    var = True
+    while var:
+        try:
+            time.sleep(60)
+        except KeyboardInterrupt:
+            var = False
+        except Exception as e:
+            print e.message

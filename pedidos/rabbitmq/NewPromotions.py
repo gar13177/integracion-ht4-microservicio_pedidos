@@ -1,8 +1,10 @@
 import pika, json
 from constants import HOST
+from promociones.servicios import Servicios_de_Promocion
 
 def callback(ch, method, properties, body):
     promocion = json.loads(body)
+    Servicios_de_Promocion().nueva_promocion(promocion)
     print promocion
 
 

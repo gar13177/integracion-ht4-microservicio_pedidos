@@ -41,7 +41,10 @@ def revisar_orden_en_erp(orden):
     orden = json.dumps(orden, ensure_ascii=False).encode('utf8')
     erp_connection = OrderValidationERP()
     print("check order: "+str(orden))
-    return {"message":"la orden fue validada"}
+    response = erp_connection.call(orden)
+    response = json.loads(response)
+    return response
+    #return {"message":"la orden fue validada"}
 
 
 def item_existe(args):
