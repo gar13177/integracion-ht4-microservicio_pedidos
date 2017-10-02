@@ -5,7 +5,7 @@ pipeline {
             agent any
             steps {
                 checkout scm
-                sh './jobs/docker_buil.sh'
+                sh './jobs/docker_build.sh'
                 //stash includes: '**/target/*.jar', name: 'app' 
             }
         }
