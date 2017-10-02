@@ -1,3 +1,3 @@
 print "tests ready"
 
-#raise Exception("error de prueba")
+raise Exception("error de prueba")
