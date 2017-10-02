@@ -6,7 +6,7 @@ pipeline {
             steps {
                 checkout scm
                 sh './jobs/docker_buil.sh'
-                /*stash includes: '**/target/*.jar', name: 'app' */
+                //stash includes: '**/target/*.jar', name: 'app' 
             }
         }
         stage('Test on Docker') {
