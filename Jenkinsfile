@@ -5,7 +5,7 @@ pipeline {
             agent any
             steps {
                 checkout scm
-                sh './jobs/docker_build.sh'
+                sh 'sudo ./jobs/docker_build.sh'
                 //stash includes: '**/target/*.jar', name: 'app' 
             }
         }
@@ -15,7 +15,7 @@ pipeline {
             }*/
             agent any
             steps {
-                sh './jobs/docker_run_tests.sh'
+                sh 'sudo ./jobs/docker_run_tests.sh'
             }
             //post {
             //    always {
