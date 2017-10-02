@@ -4,8 +4,8 @@ pipeline {
         stage('Build') {
             agent any
             steps {
-                checkout develpment
-                sh 'make'
+                checkout scm
+                sh './jobs/docker_buil.sh'
                 /*stash includes: '**/target/*.jar', name: 'app' */
             }
         }
