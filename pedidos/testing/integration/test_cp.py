@@ -1,5 +1,5 @@
 import unittest
-from markdown_adapter import run_markdown
+#from markdown_adapter import run_markdown
  
 class TestMarkdownPy(unittest.TestCase):
  
@@ -11,7 +11,7 @@ class TestMarkdownPy(unittest.TestCase):
         Non-marked lines should only get 'p' tags around all input
         '''
         self.assertEqual(
-                run_markdown('this line has no special handling'),
+                'this line has no special handling',
                 'this line has no special handling</p>')
  
     def test_em(self):
