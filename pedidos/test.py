@@ -4,5 +4,7 @@ import testing.stress.test_db
 
 print "tests ready"
 
-print "demo"
+#print "demo"
+
+raise Exception("error demo")
 
