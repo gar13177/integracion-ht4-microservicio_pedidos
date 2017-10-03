@@ -6,5 +6,5 @@ print "tests ready"
 
 #print "demo"
 
-raise Exception("error demo")
+#raise Exception("error demo")
 
