@@ -1,10 +1,7 @@
-import testing.functional.test_app
+from testing.functional.tests import *
 import testing.integration.test_cp
 import testing.stress.test_db
 
 print "tests ready"
 
-#print "demo"
-
-#raise Exception("error demo")
-
+unittest.main()
