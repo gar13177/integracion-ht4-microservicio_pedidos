@@ -6,7 +6,8 @@ from rabbitmq.NewOrder import new_order
 if __name__ == "__main__":
     try:
         thread.start_new_thread(new_promotion, ())
-        thread.start_new_thread(new_login, ())
+        new_login()
+        #thread.start_new_thread(new_login, ())
         thread.start_new_thread(new_order, ())
     except Exception as e:
         print e.message
