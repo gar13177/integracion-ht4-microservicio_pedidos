@@ -6,6 +6,6 @@ from testing.stress.stress_test import stress_test
 
 print "tests ready"
 
-#unittest.main()
+unittest.main(exit=False)
 
 stress_test()
