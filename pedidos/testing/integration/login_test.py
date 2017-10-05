@@ -1,6 +1,4 @@
-import pika, uuid, json
-import thread, time
-from NewOrderFromClient import new_order, recieve_order
+import pika, uuid, json, thread, pprint, unittest
 
 LOGIN_FROM_CLIENT_QUEUE = 'login_from_client_queue'
 HOST = 'localhost'
@@ -35,32 +33,17 @@ class LoginRpcClient(object):
             self.connection.process_data_events()
         return self.response
 
-login_rpc = LoginRpcClient()
 
-#inicio_de_sesion = {
-    #"user":"prueba@prueba",
-    #"password": "prueba"
-#}
-#inicio_de_sesion = {
-#    "token":"1"
-#}
-inicio_de_sesion = {
-    "user":"prueba@prueba",
-    "password": "prueba"
-}
 
-#print ("sent")
-response = login_rpc.call(json.dumps(inicio_de_sesion))
-response = json.loads(response)
-print("Inicio de sesion: "+str(response))
-#response = {"token":"dba1699f-6727-4840-901d-0823ae9274c6"}
+class TestLogin(unittest.TestCase):
+    def test_login(self):
+        login_rpc = LoginRpcClient()
+        inicio_de_sesion = {
+            "user":"prueba@prueba",
+            "password": "prueba"
+        }
 
-'''
-try:
-    thread.start_new_thread(recieve_order, (response['token'],))
-except Exception as e:
-    print e.message
-    print "Error: unable to start thread"'''
-new_order(response['token'])
-recieve_order(response['token'])
-#time.sleep(5)
+        response = login_rpc.call(json.dumps(inicio_de_sesion))
+        response = json.loads(response)
+        token = response['token']
+        self.assertEqual(u'1',token)

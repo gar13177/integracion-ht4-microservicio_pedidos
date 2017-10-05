@@ -1,8 +1,8 @@
-import pika, json
+import pika, json, thread
 from autenticacion.servicios import Servicios_de_Autenticacion
 from constants import LOGIN_FROM_CLIENT_QUEUE, HOST
 
-def on_request(ch, method, props, body):
+def new_thread(ch, method, props, body):
     usuario = json.loads(body)
     print usuario
 
@@ -37,6 +37,10 @@ def on_request(ch, method, props, body):
                                                          props.correlation_id),
                      body=str(response))
     ch.basic_ack(delivery_tag = method.delivery_tag)
+
+
+def on_request(ch, method, props, body):
+    thread.start_new_thread(new_thread, (ch, method, props, body))
 
 def new_login():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host=HOST))

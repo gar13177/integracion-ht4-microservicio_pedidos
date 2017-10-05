@@ -1,12 +1,14 @@
-import pika, json
+import pika, json, thread
 from constants import HOST
 from promociones.servicios import Servicios_de_Promocion
 
-def callback(ch, method, properties, body):
+def new_thread(body):
     promocion = json.loads(body)
     Servicios_de_Promocion().nueva_promocion(promocion)
     print promocion
 
+def callback(ch, method, properties, body):
+    thread.start_new_thread(new_thread, (body,))
 
 def new_promotion():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host=HOST))

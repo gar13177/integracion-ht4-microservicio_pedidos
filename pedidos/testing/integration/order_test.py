@@ -1,21 +1,21 @@
 #!/usr/bin/env python
-import pika, json
+import pika, json, unittest
 
 HOST = 'localhost'
 ORDER_QUEUE = 'los_del_call'
 ORDER_UPDATES = 'order_updates'
 
 connection = None
+response = None
 
 def recieve_callback(ch, method, properties, body):
-    print("Actualizacion recibida: "+str(body))
 
-    global connection
+    global connection, response
+    response = json.loads(body)
     connection.close()
 
 
 def recieve_order(token):
-    print('token para cola: '+str(token))
     global connection
     connection = pika.BlockingConnection(pika.ConnectionParameters(host=HOST))
     channel = connection.channel()
@@ -49,7 +49,6 @@ def new_order(token):
     channel.basic_publish(exchange='',
                         routing_key=ORDER_QUEUE,
                         body=message)
-    print("Nueva orden solicitada "+str(message))
     connection.close()
 
 order = {
@@ -70,3 +69,13 @@ order = {
 			]
 		}	
 }
+
+class TestNewOrder(unittest.TestCase):
+    def test_neworder(self):
+        token = u'1'
+        new_order(token)
+        recieve_order(token)
+        global response
+        self.assertTrue("message" in response)
+        self.assertEqual(response["message"], u"estamos atendiendo tu orden")
+        

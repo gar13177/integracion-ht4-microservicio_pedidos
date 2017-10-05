@@ -1,9 +1,9 @@
-import pika, json
+import pika, json, thread
 from constants import HOST, ORDER_QUEUE
 from ordenes.servicios import Servicios_de_Ordenes
 from ProcessOrder import process_order
 
-def callback(ch, method, properties, body):
+def new_thread(body):
     orden = json.loads(body)
     try:
         Servicios_de_Ordenes().consultar_orden_a_erp(orden)
@@ -11,6 +11,9 @@ def callback(ch, method, properties, body):
         token = orden['token']
         respuesta = json.dumps({"message":e.message}, ensure_ascii=False).encode('utf8')
         process_order(token, respuesta)
+
+def callback(ch, method, properties, body):
+    thread.start_new_thread(new_thread, (body,))
 
 def new_order():
     connection = pika.BlockingConnection(pika.ConnectionParameters(host=HOST))

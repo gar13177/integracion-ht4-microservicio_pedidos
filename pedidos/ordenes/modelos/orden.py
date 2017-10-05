@@ -11,17 +11,13 @@ class ErrorDeFacturacion(Exception):
 class Orden(object):
     def __init__(self,usuario):
         if not isinstance(usuario, Usuario):
-            usuario = Usuario(
-                usuario['email'],
-                usuario['contrasena'],
-                usuario['token']
-            )
+            usuario = Usuario(**usuario)
         self.usuario = usuario
         self.items = []
         self.esta_pagada = False
     
     def __str__(self):
-        text = 'usuario: '+str(self.usuario) + 'orden: '
+        text = 'usuario: '+str(self.usuario) + ' orden: '
         for item in self.items:
             text+=str(item)+';'
         return text
