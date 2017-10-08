@@ -52,7 +52,7 @@ def stress_test_login():
 
 def stress_test():
     stress_test_login()
-    print("login threads: "+str(len(stats['login'])))
+    print("login threads: "+str(len(stats['login']['times'])))
     print("login number: "+str(NUMBER_OF_THREADS*WORK_FOR_THREAD))
     print("login avg time: "+str(sum([sum(row) for row in stats['login']['times']])/(NUMBER_OF_THREADS*WORK_FOR_THREAD)))
     print("login test duration: "+str(stats['login']['duration']))
