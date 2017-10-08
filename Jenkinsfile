@@ -23,6 +23,12 @@ pipeline {
             //    }
             //}
         }
+        stage('Run in Dev') {
+            agent any
+            steps {
+                sh 'sudo ./jobs/docker_run_main.sh'
+            }
+        }
         //stage('Test on Windows') {
         //    agent {
         //        label 'windows'
